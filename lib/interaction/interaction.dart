@@ -36,7 +36,7 @@ class Interact extends ChangeNotifier {
 
   Future<DeployedContract> getContract() async {
     String abi = await rootBundle.loadString("assets/abi.json");
-    String contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+    String contractAddress = "0x31FbFA7E163424022EE0197DaB14E5F02bab9E61";
     DeployedContract contract = DeployedContract(
       ContractAbi.fromJson(abi, contractName),
       EthereumAddress.fromHex(contractAddress),
@@ -58,7 +58,7 @@ class Interact extends ChangeNotifier {
         function: function,
         parameters: args,
       ),
-      chainId: 31337,
+      chainId: 11155111,
     );
 
     return result;
@@ -78,9 +78,9 @@ class Interact extends ChangeNotifier {
     notifyListeners();
     String result = await transaction('deposit', [BigInt.from(amount)]);
     print(result);
+    await getBalance();
     loading = false;
     notifyListeners();
-    getBalance();
   }
 
   Future<void> withdraw() async {

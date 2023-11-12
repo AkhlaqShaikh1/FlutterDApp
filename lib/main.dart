@@ -71,7 +71,7 @@ class _MainAppState extends State<MainApp> {
             // Button to deposit
             ElevatedButton(
               onPressed: () async {
-                await provider.withdraw();
+                await provider.deposit(_value);
               },
               child: provider.loading
                   ? CircularProgressIndicator()
