@@ -3,6 +3,7 @@ pragma solidity ^0.8.7;
 
 contract MyTest {
     int public balance;
+    address owner;
     
     constructor() {
         balance = 0;

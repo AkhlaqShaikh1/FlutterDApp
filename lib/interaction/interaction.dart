@@ -10,7 +10,7 @@ class Interact extends ChangeNotifier {
   final String rpcUrl = dotenv.env['URL']!;
   final String wsUrl = dotenv.env['WSURL']!;
 
-  final String myAddress = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
+  // final String myAddress = "0x70997970C51812dc3A010C7d01b50e0d17dc79C8";
 
   final String privateKey = dotenv.env['PRIVATE_KEY']!;
 
@@ -36,7 +36,7 @@ class Interact extends ChangeNotifier {
 
   Future<DeployedContract> getContract() async {
     String abi = await rootBundle.loadString("assets/abi.json");
-    String contractAddress = "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512";
+    String contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
     DeployedContract contract = DeployedContract(
       ContractAbi.fromJson(abi, contractName),
       EthereumAddress.fromHex(contractAddress),
@@ -58,8 +58,7 @@ class Interact extends ChangeNotifier {
         function: function,
         parameters: args,
       ),
-      fetchChainIdFromNetworkId: true,
-      chainId: null,
+      chainId: 31337,
     );
 
     return result;
@@ -78,6 +77,16 @@ class Interact extends ChangeNotifier {
     loading = true;
     notifyListeners();
     String result = await transaction('deposit', [BigInt.from(amount)]);
+    print(result);
+    loading = false;
+    notifyListeners();
+    getBalance();
+  }
+
+  Future<void> withdraw() async {
+    loading = true;
+    notifyListeners();
+    String result = await transaction('withdraw', [BigInt.from(1)]);
     print(result);
     loading = false;
     notifyListeners();

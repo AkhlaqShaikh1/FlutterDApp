@@ -22,6 +22,7 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   final TextEditingController controller = TextEditingController();
+  int _value = 0;
 
   @override
   void initState() {
@@ -56,11 +57,21 @@ class _MainAppState extends State<MainApp> {
                   ? CircularProgressIndicator()
                   : Text('Get Balance'),
             ),
-
+            SizedBox(
+              height: 20,
+            ),
+            TextField(
+              controller: controller,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Enter amount to deposit',
+              ),
+              onChanged: (value) => _value = int.parse(value),
+            ),
             // Button to deposit
             ElevatedButton(
               onPressed: () async {
-                await provider.deposit(3);
+                await provider.withdraw();
               },
               child: provider.loading
                   ? CircularProgressIndicator()
